@@ -4,9 +4,7 @@
 	"description": "Obelysk est un bot de configuration pour pentesting discord, avec dashboard et solutions d'amélioration",
 	"main": "index.js",
 	"scripts": {
-		"testmode": "cls && ts-node ./source/index.ts",
-		"compiler": "cls && tsc",
-		"prodmode": "cls && node ./dist/source/index.js"
+		"start": "cls && ts-node ./source/index.ts"
 	},
 	"repository": {
 		"type": "git",

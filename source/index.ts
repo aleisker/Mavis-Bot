@@ -15,7 +15,7 @@ async function launchingDevice(): Promise<void> {
 	}
 
 	await client.syncInts({ commands: true });
-	await client.login(process.env.PROD_CLIENT_TOKEN);
+	await client.login(process.env.CLIENT_TOKEN);
 }
 
 launchingDevice();
