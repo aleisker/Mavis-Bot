@@ -1,13 +1,16 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { PermissionsBitField, SlashCommandBuilder } from 'discord.js';
+import ApplicationManager from '../../cluster/applicationmanager';
 import { Command } from '../../interfaces/command';
 
 const dashboard: Command = {
 	data: new SlashCommandBuilder()
-		.setName('ping')
-		.setDescription('Replies with pong!'),
-
+		.setName('dashboard')
+		.setDescription("Affiche les différentes modalités d'attaque activées de Obelysk")
+		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
 	async executeCommand(client, interaction) {
-		await interaction.reply('Pong!');
+		let applicationDbInstance = await ApplicationManager.findOne({ applicationID: client.user?.id });
+		if(!applicationDbInstance) { applicationDbInstance = await client.getDatabase().createApplicationDatabase(); }
 	},
 
 	settings: {

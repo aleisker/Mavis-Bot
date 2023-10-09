@@ -103,9 +103,9 @@ export class Application extends Client {
 	public async syncInts( syncInts: SyncInts ): Promise<void> {
 		const data = await this.getSyncInts(syncInts);
 		if (data.length === 0) return this.getLogger().send('Aucune commande slashée à syncroniser', 'ERROR');
-		const rest = new REST({ version: '10' }).setToken(process.env.PROD_CLIENT_TOKEN!);
+		const rest = new REST({ version: '10' }).setToken(process.env.CLIENT_TOKEN!);
 		try {
-			rest.put(Routes.applicationCommands(process.env.PROD_CLIENT_ID!), { body: data });
+			rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), { body: data });
 		} catch (e) {
 			this.getLogger().send(`${e}`, 'ERROR');
 		}
