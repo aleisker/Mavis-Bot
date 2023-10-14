@@ -8,5 +8,5 @@
 		"resolveJsonModule": true
 	},
 
-	"include": ["source/**/*", "package.json"]
+	"include": ["src/**/*", "package.json"]
 }

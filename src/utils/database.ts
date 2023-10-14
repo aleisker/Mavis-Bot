@@ -1,4 +1,4 @@
-import applicationmanager from "../cluster/applicationmanager";
+import applicationmanager from "../schemas/applicationmanager";
 
 export default class Database {
 
@@ -11,5 +11,4 @@ export default class Database {
             deleteChannels: false
         }).save();
     }
-
 }

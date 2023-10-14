@@ -1,5 +1,5 @@
 import { Client, REST, Routes } from 'discord.js';
-import { connect, connection as db, default as mongoose } from 'mongoose';
+import { connect, connection as db } from 'mongoose';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
