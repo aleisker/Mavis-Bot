@@ -1,4 +1,4 @@
-import applicationmanager from "../schemas/applicationmanager";
+import applicationmanager from "../schemas/webDashboardManager";
 
 export default class Database {
 
