@@ -5,7 +5,7 @@
 		"module": "commonjs",
 		"target": "ESNext",
 		"esModuleInterop": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
 	},
 
 	"include": ["src/**/*", "package.json"]
