@@ -1,5 +1,5 @@
 import { Client, REST, Routes } from 'discord.js';
-import { connect, connection as db } from 'mongoose';
+import { createConnection } from 'mysql';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -21,11 +21,6 @@ export class Application extends Client {
             partials: configFile.partials,
             allowedMentions: { parse: [ 'roles', 'users'], repliedUser: false }
 		});
-
-        db.on('connected', async () => this.getLogger().send(`Connecté à MongoDB (Latence: ${Math.round(await this.databasePing())}ms)`, 'READY'));
-        db.on('disconnected', () => this.getLogger().send('Deconnecté de MongoDB', 'ALERT'));
-        db.on('error', (error) => this.getLogger().send(`Connexion à MongoDB impossible !\nErreur: ${error}`, 'ERROR'));
-        db.on('reconnected', async () => this.getLogger().send(`Reconnecté à MongoDB (Latence: ${Math.round(await this.databasePing())}ms)`, 'READY'));
 	}
 
     public getDatabase(): Database {
@@ -44,18 +39,19 @@ export class Application extends Client {
 		return this.commands;
 	}
 
-    async loadDatabase() {
-        return await connect(process.env.MONGODB_URL!, {
-            retryWrites: true,
-			w: 'majority',
-        });
-    }
-
-    async databasePing() {
-        const cNano = process.hrtime();
-        await db.db.command({ ping: 1 });
-        const time = process.hrtime(cNano);
-        return (time[0] * 1e9 + time[1]) * 1e-6;
+    loadDatabase() {
+		try {
+        	createConnection({
+				host: process.env.SQL_HOST,
+				port: parseInt(process.env.SQL_PORT!),
+				database: process.env.SQL_DATA,
+				user: process.env.SQL_USER,
+				password: process.env.SQL_PASS
+			})
+			this.getLogger().send("Connexion à MySQL réussie", "READY");
+		} catch {
+			this.getLogger().send("Connexion à MySQL échouée", "ERROR");
+		}
     }
 
 	public async loadHandlers() {
