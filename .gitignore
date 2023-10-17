@@ -4,4 +4,4 @@ dist
 
 #FILES
 .env
-package-lock.yaml
+pnpm-lock.yaml
