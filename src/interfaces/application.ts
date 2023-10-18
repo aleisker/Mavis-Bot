@@ -1,5 +1,5 @@
 import { Client, REST, Routes } from 'discord.js';
-import { createConnection } from 'mysql';
+import { connect } from 'mongoose';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -39,18 +39,16 @@ export class Application extends Client {
 		return this.commands;
 	}
 
-    loadDatabase() {
+    public async loadDatabase() {
 		try {
-        	createConnection({
-				host: process.env.SQL_HOST,
-				port: parseInt(process.env.SQL_PORT!),
-				database: process.env.SQL_DATA,
-				user: process.env.SQL_USER,
-				password: process.env.SQL_PASS
+        	await connect(process.env.MONGODB_URL!, {
+				retryWrites: true,
+				retryReads: true,
+				w: "majority"
 			})
-			this.getLogger().send("Connexion à MySQL réussie", "READY");
+			this.getLogger().send("Connexion à MongoDB réussie", "READY");
 		} catch {
-			this.getLogger().send("Connexion à MySQL échouée", "ERROR");
+			this.getLogger().send("Connexion à MongoDB échouée", "ERROR");
 		}
     }
 
