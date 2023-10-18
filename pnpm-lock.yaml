@@ -35,6 +35,12 @@ dependencies:
   mysql:
     specifier: ^2.18.1
     version: 2.18.1
+  node-sql-reader:
+    specifier: ^0.1.3
+    version: 0.1.3
+  numabbr:
+    specifier: ^1.0.2
+    version: 1.0.2
   table:
     specifier: ^6.8.1
     version: 6.8.1
@@ -747,6 +753,10 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
+  /node-sql-reader@0.1.3:
+    resolution: {integrity: sha512-fV5kHBoi4fKrEYyCpOmKhHU0OFCGBeM7ovQAsKQCl+ftZRbgQIDkdcdanz07wIqBnv2Ypbf5Z+lzrqpSBWA/3w==}
+    dev: false
+
   /nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
     engines: {node: '>=6'}
@@ -762,6 +772,10 @@ packages:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+    dev: false
+
+  /numabbr@1.0.2:
+    resolution: {integrity: sha512-veROu9mbztDY5oBYWLpO127VCArHKfIadSX/FZI7IiU0Ebx5Grs6vMl7acsKP4OmBIfOoRqkbzEAjASmKFlHug==}
     dev: false
 
   /object-assign@4.1.1:
