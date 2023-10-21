@@ -9,7 +9,6 @@ async function launchingDevice(): Promise<void> {
 
 	console.log(chalk.bold.magenta(client.getLogger().ascii));
 
-    client.loadDatabase();
 	await client.loadHandlers();
 	await client.loadCommands();
 

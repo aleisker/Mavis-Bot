@@ -10,7 +10,6 @@ import { Command } from './command';
 
 export class Application extends Client {
 	private config: Config = configFile;
-    private database: Database = new Database();
     private logger: Logger = new Logger();
 	private commands: Command[] = [];
 
@@ -21,10 +20,6 @@ export class Application extends Client {
             allowedMentions: { parse: [ 'roles', 'users'], repliedUser: false }
 		});
 	}
-
-    public getDatabase(): Database {
-        return this.database;
-    }
 
 	public getConfig(): Config {
 		return this.config;
@@ -37,15 +32,6 @@ export class Application extends Client {
 	public getCommands(): Command[] {
 		return this.commands;
 	}
-
-    public loadDatabase() {
-		try {
-        	this.getDatabase().connect();
-			this.getLogger().send("Connexion à MySQL (Knex-Client) réussie", "READY");
-		} catch {
-			this.getLogger().send("Connexion à MySQL (Knex-Client) échouée", "ERROR");
-		}
-    }
 
 	public async loadHandlers() {
 		const files = readdirSync(join(__dirname, '..', 'handlers'));
