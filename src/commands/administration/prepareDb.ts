@@ -1,5 +1,6 @@
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import { Command } from "../../interfaces/command";
+import query from '../../utils/database';
 
 const prepareDb: Command = {
     data: new SlashCommandBuilder()
@@ -10,13 +11,14 @@ const prepareDb: Command = {
 
     async executeCommand(client, interaction) {
         let message = await interaction.reply("Lancement du programme...");
-        client.getDatabase().insertGuild(interaction.guild!.id);
-        client.getDatabase().insertModules(interaction.guild!.id);
-        client.getDatabase().insertChannels(interaction.guild!.id);
+        query("Servers").insert({ serverId: interaction.guild?.id });
+        query("Modules").insert({ serverId: interaction.guild?.id });
+        query("Channels").insert({ serverId: interaction.guild?.id });
         interaction.guild?.members.cache.forEach(member => {
-            client.getDatabase().insertUser(interaction.guild!.id, member.user.id);
-            client.getDatabase().insertModeration(interaction.guild!.id, member.user.id)
-            client.getDatabase().insertEconomy(member.user.id)
+            query("Users").insert({ serverId: interaction.guild?.id, memberId: member.user.id });
+            query("Moderation").insert({ serverId: interaction.guild?.id, memberId: member.user.id });
+            query("Economy").insert({ memberId: member.user.id });
+            query("Leveling").insert({ memberId: member.user.id });
         })
         message.edit(`Programme de création de table terminée, 1 Serveur + ${interaction.guild?.memberCount} Users instanciés sur MySQL !`)
     },

@@ -10,7 +10,9 @@ export const guildCreate: Handler = {
         query("Channels").insert({ serverId: interaction.guild?.id });
         interaction.guild?.members.cache.forEach(member => {
             query("Users").insert({ serverId: interaction.guild?.id, memberId: member.user.id });
-
+            query("Moderation").insert({ serverId: interaction.guild?.id, memberId: member.user.id });
+            query("Economy").insert({ memberId: member.user.id });
+            query("Leveling").insert({ memberId: member.user.id });
         })
     },
 
