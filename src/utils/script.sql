@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `Moderation` (
 DROP TABLE IF EXISTS `Bans`;
 CREATE TABLE IF NOT EXISTS `Bans` (
     `memberId` VARCHAR(18) NOT NULL,
-    `date` BIGINT NOT NULL,
+    `date` VARCHAR(10) NOT NULL,
     `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
     `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `Bans` (
 DROP TABLE IF EXISTS `Kick`;
 CREATE TABLE IF NOT EXISTS `Kick` (
     `memberId` VARCHAR(18) NOT NULL,
-    `date` BIGINT NOT NULL,
+    `date` VARCHAR(10) NOT NULL,
     `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
     `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `Kick` (
 DROP TABLE IF EXISTS `Mute`;
 CREATE TABLE IF NOT EXISTS `Mute` (
     `memberId` VARCHAR(18) NOT NULL,
-    `date` BIGINT NOT NULL,
+    `date` VARCHAR(10) NOT NULL,
     `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
     `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `Mute` (
 DROP TABLE IF EXISTS `Warn`;
 CREATE TABLE IF NOT EXISTS `Warn` (
     `memberId` VARCHAR(18) NOT NULL,
-    `date` BIGINT NOT NULL,
+    `date` VARCHAR(10) NOT NULL,
     `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
     `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
 
