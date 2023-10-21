@@ -1,5 +1,4 @@
 import { Client, REST, Routes } from 'discord.js';
-import { createConnection } from 'mysql';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -42,9 +41,9 @@ export class Application extends Client {
     public loadDatabase() {
 		try {
         	this.getDatabase().connect();
-			this.getLogger().send("Connexion à MongoDB réussie", "READY");
+			this.getLogger().send("Connexion à MySQL (Knex-Client) réussie", "READY");
 		} catch {
-			this.getLogger().send("Connexion à MongoDB échouée", "ERROR");
+			this.getLogger().send("Connexion à MySQL (Knex-Client) échouée", "ERROR");
 		}
     }
 

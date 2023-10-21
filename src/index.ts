@@ -9,7 +9,7 @@ async function launchingDevice(): Promise<void> {
 
 	console.log(chalk.bold.magenta(client.getLogger().ascii));
 
-    await client.loadDatabase();
+    client.loadDatabase();
 	await client.loadHandlers();
 	await client.loadCommands();
 
@@ -23,3 +23,11 @@ async function launchingDevice(): Promise<void> {
 }
 
 launchingDevice();
+
+process.on('uncaughtException', error => {
+	client.getLogger().send(`UncaughtException : ${error}`, "ERROR")
+});
+
+process.on('unhandledRejection', error => {
+	client.getLogger().send(`UnhandledRejection : ${error}`, "ERROR")
+});
