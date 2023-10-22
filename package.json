@@ -4,7 +4,8 @@
   "scripts": {
     "test": "cls && ts-node src/index.ts",
     "prod": "cls && node dist/src/index.js",
-    "build": "cls && tsc"
+    "build": "cls && tsc",
+    "format": "prettier --write src"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "mysql2": "^3.6.2",
     "node-sql-reader": "^0.1.3",
     "numabbr": "^1.0.2",
+    "prettier": "^3.0.3",
     "table": "^6.8.1"
   },
   "devDependencies": {
