@@ -5,3 +5,7 @@ dist
 #FILES
 .env
 pnpm-lock.yaml
+
+# IDE
+.idea
+.vscode
