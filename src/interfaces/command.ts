@@ -6,12 +6,12 @@ export interface Command {
 
   executeCommand(
     client: Application,
-    interaction: ChatInputCommandInteraction
+    interaction: ChatInputCommandInteraction,
   ): void;
   execButtons?(
     client: Application,
     interaction: ButtonInteraction,
-    buttonId: string
+    buttonId: string,
   ): void;
 
   settings: {

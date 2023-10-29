@@ -13,7 +13,7 @@ export const database = knex({
 });
 
 export default function query<TableName extends keyof Tables & string>(
-  name: TableName
+  name: TableName,
 ) {
   return database<Tables[TableName]>(name);
 }

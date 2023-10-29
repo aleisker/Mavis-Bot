@@ -39,14 +39,14 @@ export class Application extends Client {
       if (handler.default.settings.enabled) {
         const handlerName = file.split(".")[0];
         this.on(handlerName, (...args) =>
-          handler.default.executeHandler(this, ...args)
+          handler.default.executeHandler(this, ...args),
         );
         this.getLogger().send(`Handler Chargé: ${handlerName}`, "NOTIF");
       }
     }
     this.getLogger().send(
       `Méthode loadHandlers terminée : ${files.length} handlers chargés`,
-      "READY"
+      "READY",
     );
   }
 
@@ -55,13 +55,9 @@ export class Application extends Client {
     for (const folder of subfolders) {
       const files = readdirSync(join(__dirname, "..", "commands", folder));
       for (const file of files) {
-        const command = require(join(
-          __dirname,
-          "..",
-          "commands",
-          folder,
-          file
-        ));
+        const command = require(
+          join(__dirname, "..", "commands", folder, file),
+        );
         const commandName = file.split(".")[0];
         if (command.default.settings.enabled) {
           this.commands.push(command.default);
@@ -71,7 +67,7 @@ export class Application extends Client {
     }
     this.getLogger().send(
       `Méthode loadCommands terminée : ${this.commands.length} commandes chargées`,
-      "READY"
+      "READY",
     );
   }
 
@@ -81,12 +77,12 @@ export class Application extends Client {
       if (this.commands.length === 0) {
         this.getLogger().send(
           "Aucune commande slashée à mettre en cache pour synchronisation",
-          "ERROR"
+          "ERROR",
         );
       } else {
         this.getLogger().send(
           `Synchronisation de ${this.commands.length} commandes slashées`,
-          "READY"
+          "READY",
         );
         data.push(...this.commands.map((cmd) => cmd.data.toJSON()));
       }
@@ -99,10 +95,10 @@ export class Application extends Client {
     if (data.length === 0)
       return this.getLogger().send(
         "Aucune commande slashée à syncroniser",
-        "ERROR"
+        "ERROR",
       );
     const rest = new REST({ version: "10" }).setToken(
-      process.env.CLIENT_TOKEN!
+      process.env.CLIENT_TOKEN!,
     );
     try {
       rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {

@@ -31,7 +31,7 @@ export const ready: Handler = {
       .getLogger()
       .send(
         `Le client est maintenant connecté en tant que : ${client.user?.tag}`,
-        "READY"
+        "READY",
       );
   },
 
