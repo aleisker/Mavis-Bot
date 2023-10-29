@@ -4,11 +4,48 @@ import moment from "moment";
 moment.locale("FR");
 
 export default class Logger {
+  private index(): string {
+    return "[ " + chalk.bold.magenta(moment().format("LT")) + " ";
+  }
 
-    private index(): string {
-        return "[ " + chalk.bold.magenta(moment().format("LT")) + " ";
+  public send(content: string, statut: string) {
+    switch (statut.toUpperCase()) {
+      case "ERROR":
+        console.log(
+          this.index() +
+            chalk.bgRed("ERROR") +
+            " ] > " +
+            chalk.bold.gray(content)
+        );
+        break;
+      case "ALERT":
+        console.log(
+          this.index() +
+            chalk.bgYellow("ALERT") +
+            " ] > " +
+            chalk.bold.gray(content)
+        );
+        break;
+      case "READY":
+        console.log(
+          this.index() +
+            chalk.bgGreen("READY") +
+            " ] > " +
+            chalk.bold.gray(content)
+        );
+        break;
+      case "NOTIF":
+        console.log(
+          this.index() +
+            chalk.bgCyan("NOTIF") +
+            " ] > " +
+            chalk.bold.gray(content)
+        );
+        break;
     }
+  }
 
+<<<<<<< HEAD
     public send(content: string, statut: string) {
         switch(statut.toUpperCase()) {
             case "ERROR":
@@ -59,3 +96,15 @@ export default class Logger {
                       //
 `
 }
+=======
+  public ascii: string = `
+::::::::: :::::::::: ::::::::  :::    ::: :::::::::: :::
+     :+:            :+:    :+: :+:   :+:             :+:
+    +:+             +:+        +:+  +:+              +:+
+          +#++:++#   #++:++#+             +#++:++#      
+  +#+                      +#+ +#+  +#+              +#+
+ #+#                #+#    #+# #+#   #+#             #+#
+######### ########## ########  ###    ### ########## ##########
+`;
+}
+>>>>>>> 4e2769ac34f67db2b34bcddd8d0427f8939df350
