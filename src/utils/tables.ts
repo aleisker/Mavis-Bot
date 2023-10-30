@@ -1,77 +1,60 @@
 type TinyInt = 1 | 0 | boolean;
 
 export default interface Tables {
-  Servers: {
-    serverId: string;
+  Server: {
+    ServerId: string;
+    ServerId_FK1: string;
+    ServerId_FK2: string;
+    ServerId_FK3: string;
   };
-  Modules: {
-    serverId: string;
-    moduleAr: TinyInt;
-    moduleMo: TinyInt;
-    moduleLv: TinyInt;
-    moduleEc: TinyInt;
-    moduleTk: TinyInt;
-    moduleWc: TinyInt;
+  Plugin: {
+    ServerId: string;
+    ModuleAr: TinyInt;
+    ModuleMo: TinyInt;
+    ModuleLv: TinyInt;
+    ModuleEc: TinyInt;
+    ModuleWc: TinyInt;
   };
-  Channels: {
-    serverId: string;
-    welcome_channel: string;
-    goodbye_channel: string;
-    rankups_channel: string;
-    skipped_channel_1: string;
-    skipped_channel_2: string;
-    skipped_channel_3: string;
+  Channel: {
+    ServerId: string;
+    WelcomeChannel: string;
+    GoodbyeChannel: string;
+    RankupsChannel: string;
+    SkippedChannel1: string;
+    SkippedChannel2: string;
+    SkippedChannel3: string;
   };
   AntiRaid: {
-    serverId: string;
-    join_times: number;
-    join_timeout: number;
+    ServerId: string;
+    JoinLimit: number;
+    JoinTimeout: number;
+    JoinSanction: string;
   };
-  Users: {
-    memberId: string;
-    serverId: string;
-    description: string;
-    join_counter: number;
+  Member: {
+    MemberId: string;
+    About: string;
+    JoinCounter: number;
+    MemberId_FK1: string;
+    MemberId_FK2: string;
   };
   Economy: {
-    memberId: string;
-    money: number;
-    bank: number;
-    casino: number;
+    MemberId: string;
+    Wallet: number;
+    Bank: number;
+    Casino: number;
   };
   Leveling: {
-    memberId: string;
-    level: number;
-    booster: string;
-    xp_farmed: number;
-    xp_needed: number;
+    MemberId: string;
+    Ladder: number;
+    Booster: string;
+    XpFarmed: number;
+    XpNeeded: number;
   };
-  Moderation: {
-    memberId: string;
-    serverId: string;
-  };
-  Bans: {
-    memberId: string;
-    date: string;
-    reason: string;
-    moderator: string;
-  };
-  Kick: {
-    memberId: string;
-    date: string;
-    reason: string;
-    moderator: string;
-  };
-  Mute: {
-    memberId: string;
-    date: string;
-    reason: string;
-    moderator: string;
-  };
-  Warn: {
-    memberId: string;
-    date: string;
-    reason: string;
-    moderator: string;
+  Sanction: {
+    MemberId: string;
+    ServerId: string;
+    ModId: string;
+    Sanction: string;
+    Reason: string;
   };
 }

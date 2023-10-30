@@ -1,11 +1,15 @@
 import { Application } from "../interfaces/application";
 import { Handler } from "../interfaces/handler";
 import { Guild } from "discord.js";
-import insertGuild from "../utils/insertGuild";
+import insertGuild from "../cluster/insertGuild";
 
 export const guildCreate: Handler = {
   async executeHandler(client: Application, guild: Guild) {
-    await insertGuild(guild);
+    try {
+      await insertGuild(guild);
+    } catch (error) {
+      client.getLogger().send(`UnhandledRejection : ${error}`, "ERROR");
+    }
   },
 
   settings: {

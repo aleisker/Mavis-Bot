@@ -1,6 +1,6 @@
 import { PermissionsBitField, SlashCommandBuilder } from "discord.js";
 import { Command } from "../../interfaces/command";
-import insertGuild from "../../utils/insertGuild";
+import insertGuild from "../../cluster/insertGuild";
 
 const prepareDb: Command = {
   data: new SlashCommandBuilder()
@@ -13,12 +13,16 @@ const prepareDb: Command = {
 
   async executeCommand(client, interaction) {
     let message = await interaction.reply("Lancement du programme...");
-
-    await insertGuild(interaction.guild);
-
-    return message.edit(
-      `Programme de création de table terminée, 1 Serveur + ${interaction.guild?.memberCount} Users instanciés sur MySQL !`,
-    );
+    try {
+      await insertGuild(interaction.guild);
+      return message.edit(
+        `Programme de création de table terminée, 1 Serveur + ${interaction.guild?.memberCount} Users instanciés sur MySQL !`,
+      );
+    } catch (error) {
+      return message.edit(
+        `Programme de création de table échouée, \n\`\`\`${error}\`\`\``,
+      );
+    }
   },
 
   settings: {

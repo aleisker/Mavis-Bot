@@ -1,143 +1,84 @@
-DROP TABLE IF EXISTS `Servers`;
-CREATE TABLE IF NOT EXISTS `Servers` (
-    `serverId` VARCHAR(18) NOT NULL,
-
-    UNIQUE INDEX `Servers_serverId_key`(`serverId`),
-    PRIMARY KEY (`serverId`)
+DROP TABLE IF EXISTS `Plugin`;
+CREATE TABLE IF NOT EXISTS `Plugin` (
+   ServerId VARCHAR(18) NOT NULL,
+   ModuleAr BOOLEAN NOT NULL DEFAULT false,
+   ModuleMo BOOLEAN NOT NULL DEFAULT false,
+   ModuleLv BOOLEAN NOT NULL DEFAULT false,
+   ModuleEc BOOLEAN NOT NULL DEFAULT false,
+   ModuleWc BOOLEAN NOT NULL DEFAULT false,
+   PRIMARY KEY(ServerId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `Modules`;
-CREATE TABLE IF NOT EXISTS `Modules` (
-    `serverId` VARCHAR(18) NOT NULL,
-    `moduleAr` BOOLEAN NOT NULL DEFAULT false,
-    `moduleMo` BOOLEAN NOT NULL DEFAULT false,
-    `moduleLv` BOOLEAN NOT NULL DEFAULT false,
-    `moduleEc` BOOLEAN NOT NULL DEFAULT false,
-    `moduleTk` BOOLEAN NOT NULL DEFAULT false,
-    `moduleWc` BOOLEAN NOT NULL DEFAULT false,
-
-    UNIQUE INDEX `Modules_serverId_key`(`serverId`),
-    PRIMARY KEY (`serverId`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS `Channels`;
-CREATE TABLE IF NOT EXISTS `Channels` (
-    `serverId` VARCHAR(18) NOT NULL,
-    `welcome_channel` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-    `goodbye_channel` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-    `rankups_channel` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-    `skipped_channel_1` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-    `skipped_channel_2` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-    `skipped_channel_3` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-
-    UNIQUE INDEX `Channels_serverId_key`(`serverId`),
-    PRIMARY KEY (`serverId`)
+DROP TABLE IF EXISTS `Channel`;
+CREATE TABLE IF NOT EXISTS `Channel` (
+   ServerId VARCHAR(18) NOT NULL,
+   WelcomeChannel VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   GoodbyeChannel VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   RankupsChannel VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   SkippedChannel1 VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   SkippedChannel2 VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   SkippedChannel3 VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
+   PRIMARY KEY(ServerId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `AntiRaid`;
 CREATE TABLE IF NOT EXISTS `AntiRaid` (
-    `serverId` VARCHAR(18) NOT NULL,
-    `join_times` INTEGER NOT NULL DEFAULT 3,
-    `join_timeout` INTEGER NOT NULL DEFAULT 20000,
-
-    UNIQUE INDEX `AntiRaid_serverId_key`(`serverId`),
-    PRIMARY KEY (`serverId`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS `Users`;
-CREATE TABLE IF NOT EXISTS `Users` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `serverId` VARCHAR(18) NOT NULL,
-    `description` VARCHAR(191) NOT NULL DEFAULT 'Aucune description fournie',
-
-    UNIQUE INDEX `Users_serverId_key`(`serverId`),
-    UNIQUE INDEX `Users_memberId_key`(`memberId`),
-    PRIMARY KEY (`memberId`, `serverID`)
+   ServerId VARCHAR(18) NOT NULL,
+   JoinLimit INT NOT NULL DEFAULT 3,
+   JoinTimeout INT NOT NULL DEFAULT 10000,
+   JoinSantion VARCHAR(4) NOT NULL DEFAULT 'KICK',
+   PRIMARY KEY(ServerId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `Leveling`;
 CREATE TABLE IF NOT EXISTS `Leveling` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `level` INTEGER NOT NULL DEFAULT 1,
-    `booster` CHAR(1) NOT NULL DEFAULT 'D',
-    `xp_farmed` INTEGER NOT NULL DEFAULT 0,
-    `xp_needed` INTEGER NOT NULL DEFAULT 200,
-
-    UNIQUE INDEX `Leveling_memberId_key`(`memberId`),
-    PRIMARY KEY (`memberId`)
+   MemberId VARCHAR(18) NOT NULL,
+   Ladder INT NOT NULL DEFAULT 1,
+   Booster CHAR(1) NOT NULL DEFAULT 'D',
+   XpFarmed INT NOT NULL DEFAULT 0,
+   XpNeeded INT NOT NULL DEFAULT 200,
+   PRIMARY KEY(MemberId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `Economy`;
 CREATE TABLE IF NOT EXISTS `Economy` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `money` INTEGER NOT NULL DEFAULT 5000,
-    `bank` INTEGER NOT NULL DEFAULT 0,
-    `casino` INTEGER NOT NULL DEFAULT 5,
-
-    UNIQUE INDEX `Economy_memberId_key`(`memberId`),
-    PRIMARY KEY (`memberId`)
+   MemberId VARCHAR(18) NOT NULL,
+   Wallet INT NOT NULL DEFAULT 2000,
+   Bank INT NOT NULL DEFAULT 0,
+   Casino INT NOT NULL DEFAULT 3,
+   PRIMARY KEY(MemberId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `Moderation`;
-CREATE TABLE IF NOT EXISTS `Moderation` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `serverId` VARCHAR(18) NOT NULL,
-    UNIQUE INDEX `Moderation_memberId_serverID_key`(`memberId`, `serverId`),
-    PRIMARY KEY (`memberId`)
+DROP TABLE IF EXISTS `Sanction`;
+CREATE TABLE IF NOT EXISTS `Sanction` (
+   MemberId VARCHAR(18) NOT NULL,
+   ServerId VARCHAR(18) NOT NULL,
+   ModId VARCHAR(18) NOT NULL,
+   Sanction VARCHAR(4) NOT NULL DEFAULT 'VOID',
+   Reason VARCHAR(100) NOT NULL DEFAULT 'Aucune description enregistrée',
+   PRIMARY KEY(MemberId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `Bans`;
-CREATE TABLE IF NOT EXISTS `Bans` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
-    `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-
-    UNIQUE INDEX `Bans_memberId_date_key`(`memberId`, `date`),
-    PRIMARY KEY (`memberId`)
+DROP TABLE IF EXISTS `Server`;
+CREATE TABLE IF NOT EXISTS `Server` (
+   ServerId VARCHAR(18) NOT NULL,
+   ServerId_FK1 VARCHAR(18) NOT NULL,
+   ServerId_FK2 VARCHAR(18) NOT NULL,
+   ServerId_FK3 VARCHAR(18) NOT NULL,
+   PRIMARY KEY(ServerId),
+   FOREIGN KEY(ServerId_FK1) REFERENCES AntiRaid(ServerId),
+   FOREIGN KEY(ServerId_FK2) REFERENCES Channel(ServerId),
+   FOREIGN KEY(ServerId_FK3) REFERENCES Plugin(ServerId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `Kick`;
-CREATE TABLE IF NOT EXISTS `Kick` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
-    `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-
-    UNIQUE INDEX `Kick_memberId_date_key`(`memberId`, `date`),
-    PRIMARY KEY (`memberId`)
+DROP TABLE IF EXISTS `Member`;
+CREATE TABLE IF NOT EXISTS `Member` (
+   MemberId VARCHAR(18) NOT NULL,
+   About VARCHAR(200) NOT NULL DEFAULT 'Aucune description enregistrée',
+   JoinCounter INT NOT NULL DEFAULT 0,
+   MemberId_FK1 VARCHAR(18) NOT NULL,
+   MemberId_FK2 VARCHAR(18) NOT NULL,
+   PRIMARY KEY(MemberId),
+   FOREIGN KEY(MemberId_FK1) REFERENCES Economy(MemberId),
+   FOREIGN KEY(MemberId_FK2) REFERENCES Leveling(MemberId)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS `Mute`;
-CREATE TABLE IF NOT EXISTS `Mute` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
-    `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-
-    UNIQUE INDEX `Mute_memberId_date_key`(`memberId`, `date`),
-    PRIMARY KEY (`memberId`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS `Warn`;
-CREATE TABLE IF NOT EXISTS `Warn` (
-    `memberId` VARCHAR(18) NOT NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `reason` VARCHAR(191) NOT NULL DEFAULT 'Aucune raison fournie',
-    `moderator` VARCHAR(18) NOT NULL DEFAULT 'Indéfini',
-
-    UNIQUE INDEX `Warn_memberId_date_key`(`memberId`, `date`),
-    PRIMARY KEY (`memberId`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-ALTER TABLE `Modules` ADD CONSTRAINT `Modules_serverId_fkey` FOREIGN KEY (`serverId`) REFERENCES `Servers`(`serverId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Channels` ADD CONSTRAINT `Channels_serverId_fkey` FOREIGN KEY (`serverId`) REFERENCES `Servers`(`serverId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `AntiRaid` ADD CONSTRAINT `AntiRaid_serverId_fkey` FOREIGN KEY (`serverId`) REFERENCES `Servers`(`serverId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Users` ADD CONSTRAINT `Users_serverId_fkey` FOREIGN KEY (`serverId`) REFERENCES `Servers`(`serverId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Leveling` ADD CONSTRAINT `Leveling_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Users`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Economy` ADD CONSTRAINT `Economy_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Users`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Moderation` ADD CONSTRAINT `Moderation_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Users`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Bans` ADD CONSTRAINT `Bans_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Moderation`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Kick` ADD CONSTRAINT `Kick_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Moderation`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Mute` ADD CONSTRAINT `Mute_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Moderation`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `Warn` ADD CONSTRAINT `Warn_memberId_fkey` FOREIGN KEY (`memberId`) REFERENCES `Moderation`(`memberId`) ON DELETE RESTRICT ON UPDATE CASCADE;
