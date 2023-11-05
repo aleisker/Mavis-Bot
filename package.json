@@ -1,9 +1,9 @@
 {
-  "name": "zeskel",
+  "name": "moonspike",
   "version": "1.0.67",
   "scripts": {
-    "test": "cls && ts-node src/index.ts",
-    "prod": "cls && node dist/src/index.js",
+    "test": "cls && ts-node src/router.ts",
+    "prod": "cls && node dist/src/router.js",
     "build": "cls && tsc",
     "format": "prettier --write src"
   },

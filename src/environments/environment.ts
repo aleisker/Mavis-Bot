@@ -19,7 +19,7 @@ const config: Config = {
   guildId: "704412119847796856",
 
   embed: {
-    footer: "Copyright Obelysk | Mode : Prod | Développé par Spyraling",
+    footer: "Copyright Moonspike | Mode: Prod | By Aleisker",
     classColor: "#847bee",
     errorColor: "#ff5733",
     alertColor: "#ffca33",
