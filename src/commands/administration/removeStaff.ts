@@ -4,33 +4,31 @@ import {
 	SlashCommandBuilder,
 } from 'discord.js';
 import { Command } from '../../interfaces/command';
-import { insertStaff } from '../../cluster/StaffManager';
+import { deleteStaff } from '../../cluster/StaffManager';
 
-const addStaff: Command = {
+const removeStaff: Command = {
 	data: new SlashCommandBuilder()
-		.setName('add_staff')
-		.setDescription('Ajoute un staff dans le moniteur.')
+		.setName('remove_staff')
+		.setDescription('Retire un staff du moniteur.')
 		.setDMPermission(false)
 		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
 		.addUserOption((option) =>
 			option
 				.setName('staff')
 				.setRequired(true)
-				.setDescription('Entrez la mention du staff à ajouter.')
+				.setDescription('Entrez la mention du staff à retirer.')
 		),
 
 	async executeCommand(client, interaction) {
 		let staff = interaction.options.getUser('staff')!;
 
 		try {
-			await insertStaff(staff);
+			await deleteStaff(staff);
 
 			let success_embed = new EmbedBuilder()
 				.setColor(client.getConfig().embed.readyColor)
-				.setTitle('Staff ajouté en base de données !')
-				.setDescription(
-					`Pour visualiser son profil,\nfaites __/staff_profile <@${staff.id}>__`
-				)
+				.setTitle('Staff retiré de la base de données !')
+				.setDescription(`Utilisateur retiré: <@${staff.id}>`)
 				.setTimestamp()
 				.setFooter({
 					iconURL: client.user?.avatarURL()!,
@@ -54,4 +52,4 @@ const addStaff: Command = {
 	},
 };
 
-export default addStaff;
+export default removeStaff;

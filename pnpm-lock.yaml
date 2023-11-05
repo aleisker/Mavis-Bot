@@ -47,11 +47,17 @@ dependencies:
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
+  progress:
+    specifier: ^2.0.3
+    version: 2.0.3
   table:
     specifier: ^6.8.1
     version: 6.8.1
 
 devDependencies:
+  '@types/progress':
+    specifier: ^2.0.6
+    version: 2.0.6
   pnpm:
     specifier: ^8.9.2
     version: 8.9.2
@@ -309,6 +315,12 @@ packages:
     resolution: {integrity: sha512-eWO4K2Ji70QzKUqRy6oyJWUeB7+g2cRagT3T/nxYibYcT4y2BDL8lqolRXjTHmkZCdJfIPaY73KbJAZmcryxTQ==}
     dependencies:
       undici-types: 5.25.3
+
+  /@types/progress@2.0.6:
+    resolution: {integrity: sha512-VMoR0SmxPQFOZ7Sege+q2gswFNq/bHDSMcWv3sEaPqAkbvYYzCOJJzpmAupgYqXn3AXWWmyAWlw8x5tzRDNR7g==}
+    dependencies:
+      '@types/node': 20.8.6
+    dev: true
 
   /@types/ws@8.5.7:
     resolution: {integrity: sha512-6UrLjiDUvn40CMrAubXuIVtj2PEfKDffJS7ychvnPU44j+KVeXmdHHTgqcM/dxLUTHxlXHiFM8Skmb8ozGdTnQ==}
@@ -1017,6 +1029,11 @@ packages:
     resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
+    dev: false
+
+  /progress@2.0.3:
+    resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
+    engines: {node: '>=0.4.0'}
     dev: false
 
   /proxy-from-env@1.1.0:
