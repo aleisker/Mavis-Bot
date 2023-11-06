@@ -20,7 +20,7 @@ const config: Config = {
 
 	embed: {
 		footer: 'Copyright Moonspike | Mode: Prod | By Aleisker',
-		classColor: '#847bee',
+		classColor: '#ff33c1',
 		errorColor: '#ff5733',
 		alertColor: '#ffca33',
 		readyColor: '#a8da68',
