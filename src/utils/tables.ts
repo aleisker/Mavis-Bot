@@ -1,16 +1,13 @@
-type TinyInt = 1 | 0 | boolean;
-
 export default interface Tables {
-
 	//Server Side
 
 	Modules: {
 		ServerId: string;
-		ModuleMo: TinyInt;
-		ModuleLv: TinyInt;
-		ModuleEc: TinyInt;
-		ModuleTk: TinyInt;
-		ModuleWc: TinyInt;
+		ModuleMo: boolean;
+		ModuleLv: boolean;
+		ModuleEc: boolean;
+		ModuleTk: boolean;
+		ModuleWc: boolean;
 	};
 	Channels: {
 		ServerId: string;
@@ -47,4 +44,4 @@ export default interface Tables {
 		Mute: number;
 		Warn: number;
 	};
-};
+}
