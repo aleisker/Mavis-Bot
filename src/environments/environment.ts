@@ -16,7 +16,7 @@ const config: Config = {
 		Partials.ThreadMember,
 		Partials.User,
 	],
-	guildId: '704412119847796856',
+	guildId: '510815189830991873',
 
 	embed: {
 		footer: 'Copyright Moonspike | Mode: Prod | By Aleisker',

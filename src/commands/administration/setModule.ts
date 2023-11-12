@@ -8,7 +8,7 @@ const setModule: Command = {
 		.setName('set_module')
 		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
 		.setDMPermission(false)
-		.setDescription("Permet d'activer / désactiver les différents modules.")
+		.setDescription('Permet d\'activer / désactiver les différents modules.')
 		.addStringOption((modules) =>
 			modules
 				.setName('module')
@@ -22,79 +22,82 @@ const setModule: Command = {
 
 		if (module && searcher) {
 			switch (module) {
-				case 'Moderation':
-					if (searcher.ModuleMo == false) {
-						await fetcher('Modules')
-							.update({ ModuleMo: true })
-							.where({ ServerId: interaction.guild?.id });
-					} else {
-						await fetcher('Modules')
-							.update({ ModuleMo: false })
-							.where({ ServerId: interaction.guild?.id });
-					}
-					interaction
-						.reply({ content: 'Module mis à jour !', ephemeral: false })
-						.catch(console.error);
-					break;
-				case 'Leveling':
-					if (searcher.ModuleLv == false) {
-						await fetcher('Modules')
-							.update({ ModuleLv: true })
-							.where({ ServerId: interaction.guild?.id });
-					} else {
-						await fetcher('Modules')
-							.update({ ModuleLv: true })
-							.where({ ServerId: interaction.guild?.id });
-					}
-					interaction
-						.reply({ content: 'Module mis à jour !', ephemeral: false })
-						.catch(console.error);
-					break;
-				case 'Economie':
-					if (searcher.ModuleEc == false) {
-						await fetcher('Modules')
-							.update({ ModuleEc: true })
-							.where({ ServerId: interaction.guild?.id });
-					} else {
-						await fetcher('Modules')
-							.update({ ModuleEc: true })
-							.where({ ServerId: interaction.guild?.id });
-					}
-					interaction
-						.reply({ content: 'Module mis à jour !', ephemeral: false })
-						.catch(console.error);
-					break;
-				case 'Tickets':
-					if (searcher.ModuleTk == false) {
-						await fetcher('Modules')
-							.update({ ModuleTk: true })
-							.where({ ServerId: interaction.guild?.id });
-					} else {
-						await fetcher('Modules')
-							.update({ ModuleTk: true })
-							.where({ ServerId: interaction.guild?.id });
-					}
-					interaction
-						.reply({ content: 'Module mis à jour !', ephemeral: false })
-						.catch(console.error);
-					break;
-				case 'Welcomming':
-					if (searcher.ModuleWc == false) {
-						await fetcher('Modules')
-							.update({ ModuleWc: true })
-							.where({ ServerId: interaction.guild?.id });
-					} else {
-						await fetcher('Modules')
-							.update({ ModuleWc: true })
-							.where({ ServerId: interaction.guild?.id });
-					}
-					interaction
-						.reply({ content: 'Module mis à jour !', ephemeral: false })
-						.catch(console.error);
-					break;
+			case 'Moderation':
+				if (searcher.ModuleMo == false) {
+					await fetcher('Modules')
+						.update({ ModuleMo: true })
+						.where({ ServerId: interaction.guild?.id });
+				} else {
+					await fetcher('Modules')
+						.update({ ModuleMo: false })
+						.where({ ServerId: interaction.guild?.id });
+				}
+				interaction
+					.reply({ content: 'Module mis à jour !', ephemeral: false })
+					.catch(console.error);
+				break;
+			case 'Leveling':
+				if (searcher.ModuleLv == false) {
+					await fetcher('Modules')
+						.update({ ModuleLv: true })
+						.where({ ServerId: interaction.guild?.id });
+				} else {
+					await fetcher('Modules')
+						.update({ ModuleLv: true })
+						.where({ ServerId: interaction.guild?.id });
+				}
+				interaction
+					.reply({ content: 'Module mis à jour !', ephemeral: false })
+					.catch(console.error);
+				break;
+			case 'Economie':
+				if (searcher.ModuleEc == false) {
+					await fetcher('Modules')
+						.update({ ModuleEc: true })
+						.where({ ServerId: interaction.guild?.id });
+				} else {
+					await fetcher('Modules')
+						.update({ ModuleEc: true })
+						.where({ ServerId: interaction.guild?.id });
+				}
+				interaction
+					.reply({ content: 'Module mis à jour !', ephemeral: false })
+					.catch(console.error);
+				break;
+			case 'Tickets':
+				if (searcher.ModuleTk == false) {
+					await fetcher('Modules')
+						.update({ ModuleTk: true })
+						.where({ ServerId: interaction.guild?.id });
+				} else {
+					await fetcher('Modules')
+						.update({ ModuleTk: true })
+						.where({ ServerId: interaction.guild?.id });
+				}
+				interaction
+					.reply({ content: 'Module mis à jour !', ephemeral: false })
+					.catch(console.error);
+				break;
+			case 'Welcomming':
+				if (searcher.ModuleWc == false) {
+					await fetcher('Modules')
+						.update({ ModuleWc: true })
+						.where({ ServerId: interaction.guild?.id });
+				} else {
+					await fetcher('Modules')
+						.update({ ModuleWc: true })
+						.where({ ServerId: interaction.guild?.id });
+				}
+				interaction
+					.reply({ content: 'Module mis à jour !', ephemeral: false })
+					.catch(console.error);
+				break;
 			}
 		} else {
-			interaction.reply({ content: '❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.' });
+			interaction.reply({
+				content:
+					'❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.',
+			});
 		}
 	},
 

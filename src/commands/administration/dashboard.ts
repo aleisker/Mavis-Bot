@@ -16,17 +16,18 @@ const dashboard: Command = {
 		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
 		.setDMPermission(false)
 		.setDescription(
-			"Permet d'afficher le tableau de configuration du serveur."
+			'Permet d\'afficher le tableau de configuration du serveur.'
 		),
 
 	async executeCommand(client, interaction) {
-		let modules = await findModule(interaction.guild);
-		let channels = await findChannel(interaction.guild);
+		const modules = await findModule(interaction.guild);
+		const channels = await findChannel(interaction.guild);
 
 		if (modules && channels) {
-			let dashboard_embed = new EmbedBuilder()
+			const dashboard_embed = new EmbedBuilder()
 				.setColor(client.getConfig().embed.classColor)
 				.setAuthor({
+					// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 					iconURL: client.user?.avatarURL()!,
 					name: 'Gestionnaire de serveur ',
 				})
@@ -48,7 +49,7 @@ const dashboard: Command = {
 						inline: false,
 					},
 					{
-						name: "Salon d'envoi de contenu",
+						name: 'Salon d\'envoi de contenu',
 						value:
 							'__Salon Welcome__ : <#' +
 							channels.WelcomeChannel +
@@ -78,7 +79,7 @@ const dashboard: Command = {
 					text: client.getConfig().embed.footer,
 				});
 
-			let rows = new ActionRowBuilder<ButtonBuilder>({
+			const rows = new ActionRowBuilder<ButtonBuilder>({
 				components: [
 					{
 						custom_id: 'commands',
@@ -105,7 +106,10 @@ const dashboard: Command = {
 				})
 				.catch(console.error);
 		} else {
-			interaction.reply({ content: '❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.' });
+			interaction.reply({
+				content:
+					'❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.',
+			});
 		}
 	},
 

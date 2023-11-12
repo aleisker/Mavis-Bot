@@ -13,31 +13,29 @@ const user: Command = {
 		.setName('user')
 		.setDMPermission(false)
 		.setDescription(
-			"Permet d'afficher la carte d'identité relative à ce serveur du membre mentionné."
+			'Permet d\'afficher la carte d\'identité relative à ce serveur du membre mentionné.'
 		)
 		.addUserOption((member) =>
 			member
 				.setName('member')
 				.setRequired(true)
-				.setDescription("Entrez la mention de l'utilisateur à consulter")
+				.setDescription('Entrez la mention de l\'utilisateur à consulter')
 		),
 
 	async executeCommand(client, interaction) {
-		let member = interaction.options.getUser('member');
+		const member = interaction.options.getUser('member');
 
 		if (member) {
-			let moderation = await findModeration(
-				interaction.guild,
-				member
-			);
-			let leveling = await findLeveling(interaction.guild, member);
-			let economy = await findEconomy(interaction.guild, member);
+			const moderation = await findModeration(interaction.guild, member);
+			const leveling = await findLeveling(interaction.guild, member);
+			const economy = await findEconomy(interaction.guild, member);
 
 			if (moderation && leveling && economy) {
-				let me_embed = new EmbedBuilder()
+				const me_embed = new EmbedBuilder()
 					.setColor(client.getConfig().embed.classColor)
 					.setThumbnail(member.avatarURL())
 					.setAuthor({
+						// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 						iconURL: client.user?.avatarURL()!,
 						name: 'Gestion des utilisateurs',
 					})
@@ -86,12 +84,10 @@ const user: Command = {
 							inline: false,
 						},
 						{
-							name: "⏰ Compte crée il y'a :",
-							value: `\`\`${ms(
-								day().diff(member.createdAt)
-							)}\`\` (le ${day(member.createdAt).format(
-								'DD/MM/YYYY'
-							)})`,
+							name: '⏰ Compte crée il y\'a :',
+							value: `\`\`${ms(day().diff(member.createdAt))}\`\` (le ${day(
+								member.createdAt
+							).format('DD/MM/YYYY')})`,
 							inline: false,
 						},
 					])
@@ -106,7 +102,7 @@ const user: Command = {
 			} else {
 				interaction.reply({
 					content:
-						"❌ | Une erreur d'accès à la base de données c'est produite, il serait judicieux de contacter un développeur.",
+						'❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.',
 				});
 			}
 		}

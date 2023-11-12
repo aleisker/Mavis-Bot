@@ -13,19 +13,20 @@ const me: Command = {
 		.setName('me')
 		.setDMPermission(false)
 		.setDescription(
-			"Permet d'afficher votre carte d'identité relative à ce serveur."
+			'Permet d\'afficher votre carte d\'identité relative à ce serveur.'
 		),
 
 	async executeCommand(client, interaction) {
-		let moderation = await findModeration(interaction.guild, interaction.user);
-		let leveling = await findLeveling(interaction.guild, interaction.user);
-		let economy = await findEconomy(interaction.guild, interaction.user);
+		const moderation = await findModeration(interaction.guild, interaction.user);
+		const leveling = await findLeveling(interaction.guild, interaction.user);
+		const economy = await findEconomy(interaction.guild, interaction.user);
 
 		if (moderation && leveling && economy) {
-			let me_embed = new EmbedBuilder()
+			const me_embed = new EmbedBuilder()
 				.setColor(client.getConfig().embed.classColor)
 				.setThumbnail(interaction.user.avatarURL())
 				.setAuthor({
+					// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 					iconURL: client.user?.avatarURL()!,
 					name: 'Gestion des utilisateurs',
 				})
@@ -48,7 +49,11 @@ const me: Command = {
 						value: `${leveling.UsrXpFarmed} | ${leveling.UsrXpNeeded} XP`,
 						inline: true,
 					},
-					{ name: '💰 Monnaie :', value: `${economy.UsrMoney} $`, inline: true },
+					{
+						name: '💰 Monnaie :',
+						value: `${economy.UsrMoney} $`,
+						inline: true,
+					},
 					{ name: '💳 Banque :', value: `${economy.UsrBank} $`, inline: true },
 					{
 						name: '🧭 Points Casino :',
@@ -58,18 +63,22 @@ const me: Command = {
 					{
 						name: '💣 Sanctions :',
 						value: `\`\`\`Bans: ${moderation.Bans}\nKick: ${moderation.Kick}\nMute: ${moderation.Mute}\nWarn: ${moderation.Warn}\`\`\``,
-                        inline: false,
+						inline: false,
 					},
-                    {
-                        name: '📀 Est un bot Discord ?',
-                        value: interaction.user.bot.toString(),
-                        inline: false,
-                    },
-                    {
-                        name: '⏰ Compte crée il y\'a :',
-                        value: `\`\`${ms(day().diff(interaction.user.createdAt))}\`\` (le ${day(interaction.user.createdAt).format('DD/MM/YYYY')})`,
-                        inline: false
-                    }
+					{
+						name: '📀 Est un bot Discord ?',
+						value: interaction.user.bot.toString(),
+						inline: false,
+					},
+					{
+						name: '⏰ Compte crée il y\'a :',
+						value: `\`\`${ms(
+							day().diff(interaction.user.createdAt)
+						)}\`\` (le ${day(interaction.user.createdAt).format(
+							'DD/MM/YYYY'
+						)})`,
+						inline: false,
+					},
 				])
 				.setTimestamp()
 				.setFooter({
@@ -82,7 +91,7 @@ const me: Command = {
 		} else {
 			interaction.reply({
 				content:
-					"❌ | Une erreur d'accès à la base de données c'est produite, il serait judicieux de contacter un développeur.",
+					'❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.',
 			});
 		}
 	},

@@ -31,15 +31,15 @@ export async function insertGuild(guild?: Guild | null) {
 export function c(module: boolean | number): string {
 	let result = '';
 	switch (module) {
-		case false || 0:
-			result = '🔴';
-			break;
-		case true || 1:
-			result = '🟢';
-			break;
-		default:
-			result = '🟡';
-			break;
+	case false || 0:
+		result = '🔴';
+		break;
+	case true || 1:
+		result = '🟢';
+		break;
+	default:
+		result = '🟡';
+		break;
 	}
 	return result;
 }

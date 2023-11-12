@@ -12,7 +12,7 @@ export const ready: Handler = {
 			memberCount += guild.memberCount;
 		});
 
-		let statuts: string[] = [
+		const statuts: string[] = [
 			`Programme : ${name}@${version}`,
 			`Surveille ${client.guilds.cache.size} serveurs`,
 			`Protège ${abbreviate(memberCount)} utilisateurs`,
@@ -20,7 +20,7 @@ export const ready: Handler = {
 		];
 
 		setInterval(() => {
-			let randomiser = Math.floor(Math.random() * statuts.length);
+			const randomiser = Math.floor(Math.random() * statuts.length);
 			client.user?.setActivity({
 				name: statuts[randomiser],
 				type: ActivityType.Listening,

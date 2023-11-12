@@ -2,7 +2,7 @@ import { ButtonInteraction, ChatInputCommandInteraction } from 'discord.js';
 import { Application } from './application';
 
 export interface Command {
-	data: any;
+	data: unknown;
 
 	executeCommand(
 		client: Application,

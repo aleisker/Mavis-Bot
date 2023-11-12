@@ -35,6 +35,7 @@ export class Application extends Client {
 	public async loadHandlers() {
 		const files = readdirSync(join(__dirname, '..', 'handlers'));
 		for (const file of files) {
+			// eslint-disable-next-line @typescript-eslint/no-var-requires
 			const handler = require(join(__dirname, '..', 'handlers', file));
 			if (handler.default.settings.enabled) {
 				const handlerName = file.split('.')[0];
@@ -55,6 +56,7 @@ export class Application extends Client {
 		for (const folder of subfolders) {
 			const files = readdirSync(join(__dirname, '..', 'commands', folder));
 			for (const file of files) {
+				// eslint-disable-next-line @typescript-eslint/no-var-requires
 				const command = require(
 					join(__dirname, '..', 'commands', folder, file)
 				);
