@@ -1,11 +1,11 @@
 import chalk from 'chalk';
-import moment from 'moment';
+import day from 'dayjs';
 
-moment.locale('FR');
+day.locale('FR');
 
 export default class Logger {
 	private index(): string {
-		return '[ ' + chalk.bold.magenta(moment().format('LT')) + ' ';
+		return '[ ' + chalk.bold.magenta(day().format('LT')) + ' ';
 	}
 
 	public send(content: string, statut: string) {

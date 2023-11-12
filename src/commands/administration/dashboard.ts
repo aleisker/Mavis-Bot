@@ -1,4 +1,8 @@
 import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	ComponentType,
 	EmbedBuilder,
 	PermissionsBitField,
 	SlashCommandBuilder,
@@ -11,7 +15,9 @@ const dashboard: Command = {
 		.setName('dashboard')
 		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
 		.setDMPermission(false)
-		.setDescription('Permet dafficher le tableau de configuration du serveur.'),
+		.setDescription(
+			"Permet d'afficher le tableau de configuration du serveur."
+		),
 
 	async executeCommand(client, interaction) {
 		let modules = await findModule(interaction.guild);
@@ -49,7 +55,8 @@ const dashboard: Command = {
 							'>\n__Salon Goodbye__ : <#' +
 							channels.GoodbyeChannel +
 							'>\n__Salon Rankups__ : <#' +
-							channels.RankupsChannel + '>',
+							channels.RankupsChannel +
+							'>',
 						inline: false,
 					},
 					{
@@ -60,7 +67,8 @@ const dashboard: Command = {
 							'>\n__Salon 2__ : <#' +
 							channels.SkippedChannel2 +
 							'>\n__Salon 3__ : <#' +
-							channels.SkippedChannel3 + '>',
+							channels.SkippedChannel3 +
+							'>',
 						inline: false,
 					},
 				])
@@ -69,9 +77,35 @@ const dashboard: Command = {
 					iconURL: interaction.user.avatarURL()!,
 					text: client.getConfig().embed.footer,
 				});
+
+			let rows = new ActionRowBuilder<ButtonBuilder>({
+				components: [
+					{
+						custom_id: 'commands',
+						disabled: true,
+						label: 'Commandes',
+						style: ButtonStyle.Primary,
+						type: ComponentType.Button,
+					},
+					{
+						custom_id: 'contact',
+						disabled: true,
+						label: 'Contacter un Développeur',
+						style: ButtonStyle.Danger,
+						type: ComponentType.Button,
+					},
+				],
+			});
+
 			interaction
-				.reply({ embeds: [dashboard_embed], ephemeral: false })
+				.reply({
+					embeds: [dashboard_embed],
+					components: [rows],
+					ephemeral: false,
+				})
 				.catch(console.error);
+		} else {
+			interaction.reply({ content: '❌ | Une erreur d\'accès à la base de données c\'est produite, il serait judicieux de contacter un développeur.' });
 		}
 	},
 
